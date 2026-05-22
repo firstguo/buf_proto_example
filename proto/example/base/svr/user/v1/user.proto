@@ -1,23 +1,23 @@
 syntax = "proto3";
 
-package example.v1;
+package example.base.svr.user.v1;
 
-option go_package = "buf_proto_example/gen/go/example/v1";
+option go_package = "buf_proto_example/gen/go/example/base/user/v1";
 
 message GetUserRequest {
   string user_id = 1;
 }
 
 message GetUserResponse {
-  User user = 1;
+  UserInfo user = 1;
 }
 
-message User {
+message UserInfo {
   string id = 1;
   string name = 2;
   string email = 3;
 }
 
-service UserService {
+service User {
   rpc GetUser(GetUserRequest) returns (GetUserResponse);
 }

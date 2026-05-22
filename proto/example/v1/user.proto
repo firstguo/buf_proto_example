@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package example.v1;
 
-option go_package = "buf_proto_example/gen/go/example/v1;examplev1";
+option go_package = "buf_proto_example/gen/go/example/v1";
 
 message GetUserRequest {
   string user_id = 1;

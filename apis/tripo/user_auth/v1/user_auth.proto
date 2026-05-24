@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package tripo.user.v1;
+package tripo.user_auth.v1;
 
 import "google/protobuf/timestamp.proto";
 
-option go_package = "buf_proto_example/gen/go/tripo/user/v1";
+option go_package = "buf_proto_example/gen/go/tripo/user_auth/v1";
 
 // AuthToken represents an authentication token
 message AuthToken {

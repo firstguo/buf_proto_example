@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package example.base.svr.user.v1;
+package tripo.user.v1;
 
-option go_package = "buf_proto_example/gen/go/example/base/user/v1";
+option go_package = "buf_proto_example/gen/go/tripo/user/v1";
 
 message GetUserRequest {
   string user_id = 1;
@@ -18,6 +18,6 @@ message UserInfo {
   string email = 3;
 }
 
-service User {
+service UserService {
   rpc GetUser(GetUserRequest) returns (GetUserResponse);
 }

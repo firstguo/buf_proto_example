@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+package tripo.address.v1;
+
+option go_package = "buf_proto_example/gen/go/tripo/address/v1";
+
+// Address represents a physical address
+message Address {
+  string id = 1;
+  string user_id = 2;
+  AddressType type = 3;
+  string street = 4;
+  string city = 5;
+  string state = 6;
+  string postal_code = 7;
+  string country = 8;
+  bool is_default = 9;
+}
+
+// AddressType defines the type of address
+enum AddressType {
+  ADDRESS_TYPE_UNSPECIFIED = 0;
+  ADDRESS_TYPE_HOME = 1;
+  ADDRESS_TYPE_WORK = 2;
+  ADDRESS_TYPE_BILLING = 3;
+  ADDRESS_TYPE_SHIPPING = 4;
+}
+
+message CreateAddressRequest {
+  string user_id = 1;
+  AddressType type = 2;
+  string street = 3;
+  string city = 4;
+  string state = 5;
+  string postal_code = 6;
+  string country = 7;
+  bool is_default = 8;
+}
+
+message CreateAddressResponse {
+  Address address = 1;
+}
+
+message GetAddressRequest {
+  string address_id = 1;
+}
+
+message GetAddressResponse {
+  Address address = 1;
+}
+
+message ListAddressesRequest {
+  string user_id = 1;
+}
+
+message ListAddressesResponse {
+  repeated Address addresses = 1;
+}
+
+message UpdateAddressRequest {
+  string address_id = 1;
+  AddressType type = 2;
+  string street = 3;
+  string city = 4;
+  string state = 5;
+  string postal_code = 6;
+  string country = 7;
+  bool is_default = 8;
+}
+
+message UpdateAddressResponse {
+  Address address = 1;
+}
+
+message DeleteAddressRequest {
+  string address_id = 1;
+}
+
+message DeleteAddressResponse {
+  bool success = 1;
+}
+
+service AddressService {
+  rpc CreateAddress(CreateAddressRequest) returns (CreateAddressResponse);
+  rpc GetAddress(GetAddressRequest) returns (GetAddressResponse);
+  rpc ListAddresses(ListAddressesRequest) returns (ListAddressesResponse);
+  rpc UpdateAddress(UpdateAddressRequest) returns (UpdateAddressResponse);
+  rpc DeleteAddress(DeleteAddressRequest) returns (DeleteAddressResponse);
+}

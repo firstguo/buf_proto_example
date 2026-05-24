@@ -1,0 +1,116 @@
+syntax = "proto3";
+
+package tripo.user.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "buf_proto_example/gen/go/tripo/user/v1";
+
+// AuthToken represents an authentication token
+message AuthToken {
+  string access_token = 1;
+  string refresh_token = 2;
+  google.protobuf.Timestamp expires_at = 3;
+  string token_type = 4;
+}
+
+// Credentials for user authentication
+message Credentials {
+  string email = 1;
+  string password = 2;
+}
+
+// RegisterRequest for new user registration
+message RegisterRequest {
+  string email = 1;
+  string password = 2;
+  string name = 3;
+}
+
+message RegisterResponse {
+  string user_id = 1;
+  AuthToken token = 2;
+}
+
+// LoginRequest for user login
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string user_id = 1;
+  AuthToken token = 2;
+}
+
+// LogoutRequest for user logout
+message LogoutRequest {
+  string user_id = 1;
+  string access_token = 2;
+}
+
+message LogoutResponse {
+  bool success = 1;
+}
+
+// RefreshTokenRequest to refresh access token
+message RefreshTokenRequest {
+  string refresh_token = 1;
+}
+
+message RefreshTokenResponse {
+  AuthToken token = 1;
+}
+
+// ChangePasswordRequest to change user password
+message ChangePasswordRequest {
+  string user_id = 1;
+  string old_password = 2;
+  string new_password = 3;
+}
+
+message ChangePasswordResponse {
+  bool success = 1;
+}
+
+// ResetPasswordRequest to initiate password reset
+message ResetPasswordRequest {
+  string email = 1;
+}
+
+message ResetPasswordResponse {
+  bool success = 1;
+  string reset_token = 2;
+}
+
+// ConfirmResetPasswordRequest to confirm password reset
+message ConfirmResetPasswordRequest {
+  string reset_token = 1;
+  string new_password = 2;
+}
+
+message ConfirmResetPasswordResponse {
+  bool success = 1;
+}
+
+// VerifyTokenRequest to verify token validity
+message VerifyTokenRequest {
+  string access_token = 1;
+}
+
+message VerifyTokenResponse {
+  bool valid = 1;
+  string user_id = 2;
+  google.protobuf.Timestamp expires_at = 3;
+}
+
+service UserAuthService {
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  rpc Login(LoginRequest) returns (LoginResponse);
+  rpc Logout(LogoutRequest) returns (LogoutResponse);
+  rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
+  rpc ChangePassword(ChangePasswordRequest) returns (ChangePasswordResponse);
+  rpc ResetPassword(ResetPasswordRequest) returns (ResetPasswordResponse);
+  rpc ConfirmResetPassword(ConfirmResetPasswordRequest) returns (ConfirmResetPasswordResponse);
+  rpc VerifyToken(VerifyTokenRequest) returns (VerifyTokenResponse);
+}
